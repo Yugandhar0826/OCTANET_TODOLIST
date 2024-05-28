@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <
+</head>
+<body>
+
+<div class="container">
+    <h1>To-Do List</h1>
+    <form id="todo-form">
+        <input type="text" id="task-input" placeholder="Add new task..." required>
+        <input type="submit" value="Add Task">
+    </form>
+    <ul id="task-list">
+        <!-- Tasks will be added here dynamically using JavaScript -->
+    </ul>
+</div>
+
+<script>
+    document.getElementById("todo-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var taskInput = document.getElementById("task-input");
+        var taskText = taskInput.value.trim();
+        if (taskText !== "") {
+            addTask(taskText);
+            taskInput.value = "";
+        }
+    });
+
+    function addTask(taskText) {
+        var taskList = document.getElementById("task-list");
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        span.textContent = taskText;
+        span.classList.add("task-text");
+        li.appendChild(span);
+        var deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.addEventListener("click", function() {
+            li.remove();
+        });
+        li.appendChild(deleteBtn);
+        var completeBtn = document.createElement("button");
+        completeBtn.textContent = "Complete";
+        completeBtn.classList.add("complete-btn");
+        completeBtn.addEventListener("click", function() {
+            li.classList.toggle("complete");
+        });
+        li.appendChild(completeBtn);
+        taskList.appendChild(li);
+    }
+</script>
+
+</body>
+</html>
